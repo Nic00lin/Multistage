@@ -1,0 +1,23 @@
+version: '3'
+
+services:
+  nginx_wordpress:
+    build: ./nginx_wp
+    ports:
+      - "8080:80"
+    depends_on:
+      - postgres
+
+  postgres:
+    build: ./postgres
+    environment:
+      POSTGRES_DB: wordpress_db
+      POSTGRES_USER: wordpress_user
+      POSTGRES_PASSWORD: Such@Go0dPasswd
+
+  grafana_prometheus:
+    build: ./monitoring
+    ports:
+      - "3000:3000"
+      - "9090:9090"
+
