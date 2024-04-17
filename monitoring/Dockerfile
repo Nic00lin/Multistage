@@ -1,8 +1,7 @@
-FROM ubuntu
+FROM ubuntu:latest
 
 RUN apt-get update && \
-    apt-get install -y wget curl && \
-    apt install libfontconfig1 && \
+    apt-get install -y wget curl libfontconfig1 && \
     rm -rf /var/lib/apt/lists/* && \
     wget --no-check-certificate -q -O /tmp/grafana.deb https://dl.grafana.com/oss/release/grafana_8.0.0_amd64.deb && \
     dpkg -i /tmp/grafana.deb && \
@@ -17,4 +16,5 @@ COPY prometheus.yml /opt/prometheus/prometheus.yml
 
 EXPOSE 3000 9090
 
-CMD service grafana-server start && /opt/prometheus/prometheus --config.file=/opt/prometheus/prometheus.yml
+ENTRYPOINT ["service", "grafana-server", "start"]
+CMD ["/opt/prometheus/prometheus", "--config.file=/opt/prometheus/prometheus.yml"]
