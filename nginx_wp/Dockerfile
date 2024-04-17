@@ -6,7 +6,7 @@ ENV TZ=Europe/Moscow
 
 RUN apt-get update && \
     apt-get install -y --no-install-recommends nginx php-fpm php-mysql php-curl php-gd php-intl php-mbstring php-soap php-xml php-xmlrpc php-zip wget unzip && \
-    wget -qO /tmp/latest.zip https://wordpress.org/latest.zip && \
+    wget --no-check-certificate -qO /tmp/latest.zip https://wordpress.org/latest.zip && \
     unzip /tmp/latest.zip -d /var/www/html/ && \
     rm -f /tmp/latest.zip && \
     chown -R www-data:www-data /var/www/html/wordpress && \
